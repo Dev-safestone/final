@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:login/screens/safe_circles/safe_circle.dart';
 
 class EditCircles extends StatelessWidget {
   @override
@@ -8,6 +10,7 @@ class EditCircles extends StatelessWidget {
       height: 35,
       child: ElevatedButton(
         onPressed: () {
+          Get.to(EditSafeCircles());
           // Add your button press action here
         },
         style: ElevatedButton.styleFrom(
@@ -18,7 +21,7 @@ class EditCircles extends StatelessWidget {
           minimumSize: Size(189, 31.33), // Width and height
         ),
         child: Text(
-          'Edit Circles',
+          'Edit Circless',
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white,

@@ -323,7 +323,7 @@ class MyApiClientServices extends MyApiServices {
     }
   }
 
-  //----------------------------------send otp for registratio--------------------------------
+  //----------------------------------send otp for registration--------------------------------
 
   Future<void> sendOtpRegistration() async {
     var phoneNumb = PhoneNumberSignupTextFieldState.phoneNumber;
@@ -372,7 +372,6 @@ class MyApiClientServices extends MyApiServices {
   }
 
   //---------------------------------------------------------register user ---------------------
-
 
   Future<void> registeruser() async {
     //final String enteredPin;
@@ -453,12 +452,15 @@ class MyApiClientServices extends MyApiServices {
       // Handle any exceptions that may occur
     }
   }
-  
 
   //----------------------------------------------create safe circle---------------------
   Future<void> createSafeCircle() async {
     var name = EditSafeCirclesState.storedSafecirclename;
     final dio = Dio();
+    String? accessToken = ApiTokens.accessToken;
+    var headers = {
+      'Cookie': 'access_token=$accessToken',
+    };
 
     try {
       print(name);
@@ -468,13 +470,15 @@ class MyApiClientServices extends MyApiServices {
           "name":
               EditSafeCirclesState.storedSafecirclename, // Convert to String
         },
+        options: Options(headers: headers),
       );
       print(response.data);
 
       // Check if the request was successful (you can adjust the status code as needed)
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         // Extract the safeCircleId from the response
         SafeCircleId.safeCircleId = response.data['data']['safeCircleId'];
+        Get.back();
 
         // Print the extracted safeCircleId
         print('Safe Circle ID: ${SafeCircleId.safeCircleId}');
@@ -486,6 +490,47 @@ class MyApiClientServices extends MyApiServices {
     } catch (e) {
       // Handle exceptions
       print('Error making API request: $e');
+    }
+  }
+
+//-------------------------------------connection request-------------------------------------------------------------------
+  void sendConnectionRequest() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? receiverId = prefs.getString('reciverId');
+
+    final dio = Dio();
+    String? accessToken = ApiTokens.accessToken;
+    var headers = {
+      'Cookie': 'access_token=$accessToken',
+    };
+
+    try {
+      print(ApiTokens.accessToken);
+      print(receiverId);
+      print('Safe Circle ID: ${SafeCircleId.safeCircleId}');
+      final response = await dio.post(
+        'http://3.7.74.242:3000/user/sendconnectionrequest/$receiverId',
+
+        options: Options(headers: headers),
+
+        // Add any request data you need to send in the data field
+      );
+
+      if (response.statusCode == 201) {
+        print('Connection request sent successfully');
+        print(response.data);
+        print(response.statusCode);
+        // You can handle the response here if needed
+      } else if (response.statusCode == 400) {
+        print('Connection request already sent');
+        // Handle the case when a connection request has already been sent
+      } else {
+        print('Error sending connection request: ${response.data}');
+        // Handle other status codes as needed
+      }
+    } catch (e) {
+      print('Error making API request: $e');
+      // Handle exceptions here
     }
   }
 
@@ -519,6 +564,7 @@ class MyApiClientServices extends MyApiServices {
   }
 
   Future<UserProfile> getuserProfileData(String id) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
       // var data = json.encode({
       //   "name": "$firstName $middleName $lastName",
@@ -533,6 +579,8 @@ class MyApiClientServices extends MyApiServices {
       var response = await dio.get('http://3.7.74.242:3000/user/getuser/' + id);
 
       if (response.statusCode == 200) {
+        final String reciverId = response.data['_id'];
+        await prefs.setString('reciverId', reciverId);
         print(json.encode(response.data));
         return UserProfile.fromJson(response.data);
       } else {
@@ -547,6 +595,10 @@ class MyApiClientServices extends MyApiServices {
 
   updateUser(String lat, String long) async {
     try {
+      String? accessToken = ApiTokens.accessToken;
+      var headers = {
+        'Cookie': 'access_token=$accessToken',
+      };
       // var data = json.encode({
       //   "name": "$firstName $middleName $lastName",
       //   "department": department,
@@ -563,6 +615,7 @@ class MyApiClientServices extends MyApiServices {
           'lat': lat,
           'long': long,
         },
+        options: Options(headers: headers),
       );
       print(response);
       if (response.statusCode == 200) {

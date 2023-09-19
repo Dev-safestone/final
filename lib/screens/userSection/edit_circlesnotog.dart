@@ -12,10 +12,9 @@ class EditCircles extends StatelessWidget {
         // onPressed:()=> Get.to(() => EditSafeCircles()),
 
         onPressed: () {
-
-    //       Navigator.push(
-    // context,
-    // MaterialPageRoute(builder: (context) => EditSafeCircles()),
+          //       Navigator.push(
+          // context,
+          // MaterialPageRoute(builder: (context) => EditSafeCircles()),
 
           print('pressd');
           Get.to(EditSafeCircles());

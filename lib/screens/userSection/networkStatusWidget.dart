@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:login/api/client.dart';
 import 'package:login/utils/consts.dart';
 
 class NetworkStatusWidget extends StatelessWidget {
@@ -9,7 +10,9 @@ class NetworkStatusWidget extends StatelessWidget {
       margin: EdgeInsets.only(top: 12),
       height: 35,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          MyApiClientServices.shared.sendConnectionRequest();
+        },
         style: ElevatedButton.styleFrom(
           backgroundColor: primaryColor, // Background color
           shape: RoundedRectangleBorder(
@@ -18,7 +21,7 @@ class NetworkStatusWidget extends StatelessWidget {
           minimumSize: Size(189, 31.33), // Width and height
         ),
         child: Text(
-          'Add to Network',
+          'Add to Networkk',
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white,
