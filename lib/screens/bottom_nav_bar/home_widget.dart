@@ -8,6 +8,7 @@ import 'package:login/screens/googleMaps/bottom_container.dart';
 import 'package:login/screens/googleMaps/google_maps_screen.dart';
 import 'package:login/screens/bottom_nav_bar/custom_tapbar.dart';
 import 'package:login/screens/googleMaps/search_box.dart';
+import 'package:login/screens/notification/notification_page.dart';
 import 'package:login/utils/SharePrefs.dart';
 import 'package:login/utils/consts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -47,6 +48,7 @@ class HomeWidget extends StatelessWidget {
                     Spacer(),
                     GestureDetector(
                       onTap: () {
+                        Get.to(NotificationPage());
                         // Handle notification icon tap here
                       },
                       child: Image.asset(
