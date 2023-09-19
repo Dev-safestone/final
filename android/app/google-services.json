@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "880337820808",
+    "project_id": "safestone-391406",
+    "storage_bucket": "safestone-391406.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:880337820808:android:171c5610c15e6b9226133d",
+        "android_client_info": {
+          "package_name": "com.safestone.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "880337820808-hkbg4oltqpjm8m1d9slcrlbeef508ime.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDg-f2jlgsY63LDI36IenK3KbB7MOY1DEM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "880337820808-hkbg4oltqpjm8m1d9slcrlbeef508ime.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
